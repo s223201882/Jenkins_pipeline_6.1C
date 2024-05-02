@@ -19,24 +19,22 @@ pipeline {
                     // archiveArtifacts artifacts: '**/test-results/*.txt', fingerprint: true
 
                     // Email notification for security scan success
-                    emailext (
+                  mail to: 'ammardaruger@gmail.com',
                         subject: "Testing succeeded: ${env.JOB_NAME}",
                         body: "Testing succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        to: 'ammardaruger@gmail.com',
                         attachLog: true
-                    )
+                    
                 }
                 failure {
                     // Archive the security scan log
                     archiveArtifacts artifacts: '**/testing-results/*.txt', fingerprint: true
 
                     // Email notification for security scan failure
-                    emailext (
+                        mail  to: 'ammardaruger@gmail.com',
                         subject: "Testing failed: ${env.JOB_NAME}",
                         body: "Testing failed: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        to: 'ammardaruger@gmail.com',
                         attachLog: true
-                    )
+                    
                 }
             }
         }
@@ -54,21 +52,19 @@ pipeline {
             post {
                 success {
                     // archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
-                    emailext (
+                        mail to: 'ammardaruger@gmail.com',
                         subject: "Security scan succeeded: ${env.JOB_NAME}",
                         body: "Security scan succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        to: 'ammardaruger@gmail.com',
                         attachLog: true
-                    )
+
                 }
                 failure {
                     // archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
-                    emailext (
+                        mail to: 'ammardaruger@gmail.com',
                         subject: "Security scan failed: ${env.JOB_NAME}",
                         body: "Security scan failed: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        to: 'ammardaruger@gmail.com',
                         attachLog: true
-                    )
+                    
                 }
             }
         }
