@@ -22,7 +22,7 @@ pipeline {
                   mail to: 'ammardaruger@gmail.com',
                         subject: "Testing succeeded: ${env.JOB_NAME}",
                         body: "Testing succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        attachLog: true
+                        //attachLog: true
                     
                 }
                 failure {
@@ -33,7 +33,7 @@ pipeline {
                         mail  to: 'ammardaruger@gmail.com',
                         subject: "Testing failed: ${env.JOB_NAME}",
                         body: "Testing failed: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        attachLog: true
+                        //attachLog: true
                     
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
                         mail to: 'ammardaruger@gmail.com',
                         subject: "Security scan succeeded: ${env.JOB_NAME}",
                         body: "Security scan succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        attachLog: true
+                       // attachLog: true
 
                 }
                 failure {
@@ -63,7 +63,7 @@ pipeline {
                         mail to: 'ammardaruger@gmail.com',
                         subject: "Security scan failed: ${env.JOB_NAME}",
                         body: "Security scan failed: ${env.JOB_NAME} (${env.BUILD_URL})",
-                        attachLog: true
+                        //attachLog: true
                     
                 }
             }
