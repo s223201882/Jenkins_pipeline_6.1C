@@ -1,33 +1,52 @@
 pipeline {
     agent any
+    
     stages {
         stage('Build') {
             steps {
-                echo "Building..."
-            }
-            post{
-                always{
-                    mail to: "ammardaruger@gmail.com",
-                    subject: "Build successful email",
-                    body: "body log attached"
-                }
+                echo "Building the code.."
+                echo "using Maven"
             }
         }
-        
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo "Testing..."
+                echo "Running tests.. "
+                echo "using Selenium" 
             }
         }
-        
-        stage('Deploy') {
+        stage('Code Analysis') {
             steps {
-                echo "Deploying"
+                echo "Code Analysis in progress"
+                echo "Using SonarQube"
             }
         }
-        stage('Complete') {
+        stage('Security Scan') {
             steps {
-                echo "Completed... "
+                echo "Security Testing in progress"    
+                echo "using OWASP ZAP
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                echo "Deployment  in progress"    
+                echo "using AWS CodeDeploy"
+            }
+        }
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Integration testing  in progress"    
+                echo "using Selenium"
+                // Run integration tests on the staging environment
+                // with Selenium
+                // You would have to configure Selenium accordingly
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                echo "Deployment to production in progress"    
+                echo "using AWS CodeDeploy"
+                // Deploy to production using AWS CodeDeploy
+                // You would have to configure AWS CodeDeploy accordingly
             }
         }
     }
