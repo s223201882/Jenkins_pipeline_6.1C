@@ -21,7 +21,7 @@ pipeline {
                     // Email notification for security scan success
                   mail to: 'ammardaruger@gmail.com',
                         subject: "Testing succeeded: ${env.JOB_NAME}",
-                        body: "Testing succeeded: ${env.JOB_NAME} (${env.BUILD_URL}) \n\n ${BUILD_LOG, maxLines=9999, escapeHtml=false}"
+                        body: "Testing succeeded: ${env.JOB_NAME} (${env.BUILD_URL})"
                     
                 }
                 failure {
