@@ -13,6 +13,31 @@ pipeline {
                 echo "Running tests.. "
                 echo "using Selenium" 
             }
+            success {
+                    // Archive the security scan log
+                    archiveArtifacts artifacts: '**/test-results/*.txt', fingerprint: true
+
+                    // Email notification for security scan success
+                    emailext (
+                        subject: "Testing succeeded: ${env.JOB_NAME}",
+                        body: "Testing succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
+                        to: 'ammardaruger@gmail.com',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    // Archive the security scan log
+                    archiveArtifacts artifacts: '**/testing-results/*.txt', fingerprint: true
+
+                    // Email notification for security scan failure
+                    emailext (
+                        subject: "Testing failed: ${env.JOB_NAME}",
+                        body: "Testing failed: ${env.JOB_NAME} (${env.BUILD_URL})",
+                        to: 'ammardaruger@gmail.com',
+                        attachLog: true
+                    )
+                }
+            
         }
         stage('Code Analysis') {
             steps {
@@ -25,6 +50,30 @@ pipeline {
                 echo "Security Testing in progress"    
                 echo "using OWASP ZAP
             }
+        success {
+                    // Archive the security scan log
+                    archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
+
+                    // Email notification for security scan success
+                    emailext (
+                        subject: "Security scan succeeded: ${env.JOB_NAME}",
+                        body: "Security scan succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
+                        to: 'ammardaruger@gmail.com',
+                        attachLog: true
+                    )
+                }
+                failure {
+                    // Archive the security scan log
+                    archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
+
+                    // Email notification for security scan failure
+                    emailext (
+                        subject: "Security scan failed: ${env.JOB_NAME}",
+                        body: "Security scan failed: ${env.JOB_NAME} (${env.BUILD_URL})",
+                        to: 'ammardaruger@gmail.com',
+                        attachLog: true
+                    )
+                }
         }
         stage('Deploy to Staging') {
             steps {
@@ -36,17 +85,13 @@ pipeline {
             steps {
                 echo "Integration testing  in progress"    
                 echo "using Selenium"
-                // Run integration tests on the staging environment
-                // with Selenium
-                // You would have to configure Selenium accordingly
+
             }
         }
         stage('Deploy to Production') {
             steps {
                 echo "Deployment to production in progress"    
                 echo "using AWS CodeDeploy"
-                // Deploy to production using AWS CodeDeploy
-                // You would have to configure AWS CodeDeploy accordingly
             }
         }
     }
