@@ -13,9 +13,10 @@ pipeline {
                 echo "Running tests.. "
                 echo "using Selenium" 
             }
-            success {
+            post {
+                success {
                     // Archive the security scan log
-                    archiveArtifacts artifacts: '**/test-results/*.txt', fingerprint: true
+                    // archiveArtifacts artifacts: '**/test-results/*.txt', fingerprint: true
 
                     // Email notification for security scan success
                     emailext (
@@ -37,7 +38,7 @@ pipeline {
                         attachLog: true
                     )
                 }
-            
+            }
         }
         stage('Code Analysis') {
             steps {
@@ -50,9 +51,9 @@ pipeline {
                 echo "Security Testing in progress"    
                 echo "using OWASP ZAP"
             }
-        success {
-                    archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
-
+            post {
+                success {
+                    // archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
                     emailext (
                         subject: "Security scan succeeded: ${env.JOB_NAME}",
                         body: "Security scan succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
@@ -61,7 +62,7 @@ pipeline {
                     )
                 }
                 failure {
-                    archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
+                    // archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
                     emailext (
                         subject: "Security scan failed: ${env.JOB_NAME}",
                         body: "Security scan failed: ${env.JOB_NAME} (${env.BUILD_URL})",
@@ -69,6 +70,7 @@ pipeline {
                         attachLog: true
                     )
                 }
+            }
         }
         stage('Deploy to Staging') {
             steps {
@@ -80,7 +82,6 @@ pipeline {
             steps {
                 echo "Integration testing  in progress"    
                 echo "using Selenium"
-
             }
         }
         stage('Deploy to Production') {
