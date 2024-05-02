@@ -48,13 +48,11 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo "Security Testing in progress"    
-                echo "using OWASP ZAP
+                echo "using OWASP ZAP"
             }
         success {
-                    // Archive the security scan log
                     archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
 
-                    // Email notification for security scan success
                     emailext (
                         subject: "Security scan succeeded: ${env.JOB_NAME}",
                         body: "Security scan succeeded: ${env.JOB_NAME} (${env.BUILD_URL})",
@@ -63,10 +61,7 @@ pipeline {
                     )
                 }
                 failure {
-                    // Archive the security scan log
                     archiveArtifacts artifacts: '**/security-scan-results/*.txt', fingerprint: true
-
-                    // Email notification for security scan failure
                     emailext (
                         subject: "Security scan failed: ${env.JOB_NAME}",
                         body: "Security scan failed: ${env.JOB_NAME} (${env.BUILD_URL})",
