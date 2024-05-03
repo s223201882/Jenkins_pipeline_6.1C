@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+
+    // Ammar Daruger
+    // s223201882
+
     stages {
         stage('Build') {
             steps {
