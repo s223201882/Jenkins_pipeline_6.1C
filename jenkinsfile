@@ -3,7 +3,7 @@ pipeline {
 
     //Ammar Daruger
     //s223201882
-    // Task 6.1C
+    // Task 6.1C Prof IT
     
     stages {
         stage('Build') {
